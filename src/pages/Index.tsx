@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
 import { 
   Cloud, 
   MapPin, 
@@ -15,6 +16,7 @@ import {
 } from "lucide-react";
 
 const Index = () => {
+  const navigate = useNavigate();
   const currentAQI = 42;
   const aqiStatus = "Good";
   const aqiColor = "text-green-600";
@@ -53,9 +55,17 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-border/20 sticky top-0 z-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-10 w-64 h-64 bg-primary rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-400 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-green-400 rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="relative z-10">
+        {/* Header */}
+        <header className="bg-white/80 backdrop-blur-sm border-b border-border/20 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -63,11 +73,11 @@ const Index = () => {
               <h1 className="text-2xl font-bold text-foreground">AirGuard Pro</h1>
             </div>
             <nav className="hidden md:flex items-center space-x-6">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Home</a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Real-time Data</a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Forecasts</a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Alerts</a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">About</a>
+              <button onClick={() => navigate("/")} className="text-muted-foreground hover:text-primary transition-colors">Home</button>
+              <button onClick={() => navigate("/real-time-data")} className="text-muted-foreground hover:text-primary transition-colors">Real-time Data</button>
+              <button onClick={() => navigate("/forecasts")} className="text-muted-foreground hover:text-primary transition-colors">Forecasts</button>
+              <button onClick={() => navigate("/alerts")} className="text-muted-foreground hover:text-primary transition-colors">Alerts</button>
+              <button onClick={() => navigate("/about")} className="text-muted-foreground hover:text-primary transition-colors">About</button>
               <Button variant="default" size="sm">Login</Button>
             </nav>
           </div>
@@ -90,11 +100,11 @@ const Index = () => {
               Advanced air quality forecasting platform combining NASA satellite data with ground sensors for accurate, hyperlocal predictions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="px-8">
+              <Button size="lg" className="px-8" onClick={() => navigate("/real-time-data")}>
                 <MapPin className="h-5 w-5 mr-2" />
                 Check Air Quality Now
               </Button>
-              <Button variant="outline" size="lg" className="px-8">
+              <Button variant="outline" size="lg" className="px-8" onClick={() => navigate("/real-time-data")}>
                 <Eye className="h-5 w-5 mr-2" />
                 View Live Map
               </Button>
@@ -234,6 +244,7 @@ const Index = () => {
           </div>
         </div>
       </footer>
+      </div>
     </div>
   );
 };
